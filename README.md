@@ -19,6 +19,12 @@ rails g devise_invalidatable User
 ```
 This will add the directive to the resource's model and create a migration for the sessions table.
 
+If using Mongoid, run the generator with `--mongoid`
+```
+rails g devise_invalidatable User --mongoid
+```
+This will add the directive to the resource's model and create a user session model.
+
 ## Copyright
 
 MIT License (MIT)

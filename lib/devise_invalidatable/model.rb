@@ -8,7 +8,6 @@ module Devise
       included do
         has_many :user_sessions,
                  class_name: 'UserSession',
-                 foreign_key: :user_id,
                  dependent: :destroy
       end
 

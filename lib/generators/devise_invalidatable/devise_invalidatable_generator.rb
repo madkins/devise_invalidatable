@@ -1,9 +1,11 @@
 require 'rails/generators'
 
 class DeviseInvalidatableGenerator < Rails::Generators::NamedBase
-  include Rails::Generators::Migration
+  if defined?(ActiveRecord)
+    include Rails::Generators::Migration
+  end
 
-  desc 'Creates a migration to add the required attributes to NAME, and adds' \
+  desc 'Creates a migration to add the required attributes to NAME, and adds ' \
        'the necessary Devise directives to the model'
 
   def self.source_root
@@ -18,8 +20,25 @@ class DeviseInvalidatableGenerator < Rails::Generators::NamedBase
     end
   end
 
+  def generate
+    if defined?(Mongoid)
+      create_session_model
+    elsif defined?(ActiveRecord)
+      create_migration_file
+    end
+
+    inject_devise_directives_into_model
+  end
+
+  private
+
   def create_migration_file
     migration_template 'migration.rb', 'db/migrate/devise_create_user_sessions.rb'
+  end
+
+  def create_session_model
+    model_path = File.join('app', 'models', 'user_session.rb')
+    template('user_session.rb', model_path)
   end
 
   def inject_devise_directives_into_model
@@ -32,5 +51,4 @@ class DeviseInvalidatableGenerator < Rails::Generators::NamedBase
 
     inject_into_class(model_path, class_path.last, content)
   end
-
 end

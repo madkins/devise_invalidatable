@@ -7,8 +7,8 @@ class DeviseInvalidatableGenerator < Rails::Generators::NamedBase
 
   desc 'Creates a migration to add the required attributes to NAME, and adds ' \
        'the necessary Devise directives to the model'
-  class_option :mongoid, :type => :boolean, :group => :runtime,
-               :desc => "Create mongoid model class"
+  class_option :mongoid, type: :boolean, group: :runtime,
+               desc: 'Create mongoid user session model'
 
   def self.source_root
     @_devise_source_root ||= File.expand_path('../templates', __FILE__)

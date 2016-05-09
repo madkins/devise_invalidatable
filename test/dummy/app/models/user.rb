@@ -1,2 +1,3 @@
-class User
+class User < ActiveRecord::Base
+  devise :invalidatable
 end

@@ -1,2 +1,4 @@
 log/*.log
 .idea
+test/dummy/log/*.log
+tmp/

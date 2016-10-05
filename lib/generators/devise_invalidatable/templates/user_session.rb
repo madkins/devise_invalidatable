@@ -3,6 +3,8 @@ class UserSession
   include Mongoid::Timestamps
 
   field :session_id, type: String
+  field :ip, type: String
+  field :user_agent, type: String
 
   belongs_to :<%= file_name %>
 

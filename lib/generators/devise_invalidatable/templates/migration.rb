@@ -6,6 +6,8 @@ class DeviseCreateUserSessions < ActiveRecord::Migration
     create_table @@table_name do |t|
       t.integer @@column_name
       t.string :session_id
+      t.string :ip
+      t.string :user_agent
       t.timestamps
     end
     add_index(@@table_name, @@column_name)

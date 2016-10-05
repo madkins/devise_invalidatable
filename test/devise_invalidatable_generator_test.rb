@@ -31,6 +31,20 @@ class DeviseInvalidatableGeneratorTest < Rails::Generators::TestCase
     end
   end
 
+  test 'migration adds column ip' do
+    run_generator %w(User)
+    assert_migration 'db/migrate/devise_create_user_sessions.rb' do |migration|
+      assert_match(/string :ip/, migration)
+    end
+  end
+
+  test 'migration adds column user_agent' do
+    run_generator %w(User)
+    assert_migration 'db/migrate/devise_create_user_sessions.rb' do |migration|
+      assert_match(/string :user_agent/, migration)
+    end
+  end
+
   test 'does not create migration when using mongoid' do
     run_generator %w(User --mongoid)
     assert_no_migration 'db/migrate/devise_create_user_sessions.rb'
@@ -45,6 +59,20 @@ class DeviseInvalidatableGeneratorTest < Rails::Generators::TestCase
     run_generator %w(User --mongoid)
     assert_file 'app/models/user_session.rb' do |file|
       assert_match(/belongs_to :user/, file)
+    end
+  end
+
+  test 'user_session.rb has ip field' do
+    run_generator %w(User --mongoid)
+    assert_file 'app/models/user_session.rb' do |file|
+      assert_match(/field :ip/, file)
+    end
+  end
+
+  test 'user_session.rb has user_agent field' do
+    run_generator %w(User --mongoid)
+    assert_file 'app/models/user_session.rb' do |file|
+      assert_match(/field :user_agent/, file)
     end
   end
 

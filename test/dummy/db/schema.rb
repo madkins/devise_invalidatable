@@ -16,6 +16,8 @@ ActiveRecord::Schema.define(version: 20160509174252) do
   create_table "user_sessions", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "session_id"
+    t.string   "ip"
+    t.string   "user_agent"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

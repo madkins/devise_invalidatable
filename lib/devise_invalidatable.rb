@@ -7,6 +7,10 @@ Devise.add_module(:invalidatable,
                   model: 'devise_invalidatable/model')
 
 module DeviseInvalidatable
+  class << self
+    attr_accessor :max_number_of_sessions
+  end
+  self.max_number_of_sessions = 10
 end
 
 if defined?(ActiveRecord)

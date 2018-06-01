@@ -30,7 +30,9 @@ module Devise
       end
 
       def purge_old_sessions
-        user_sessions.order('created_at desc').offset(10).destroy_all
+        user_sessions.order('created_at desc')
+                     .offset(DeviseInvalidatable.max_number_of_sessions)
+                     .destroy_all
       end
 
     end

@@ -8,8 +8,9 @@ Devise.add_module(:invalidatable,
 
 module DeviseInvalidatable
   class << self
-    attr_accessor :max_number_of_sessions
+    attr_accessor :throw_on_logout, :max_number_of_sessions
   end
+  self.throw_on_logout = true
   self.max_number_of_sessions = 10
 end
 

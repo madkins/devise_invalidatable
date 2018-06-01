@@ -37,7 +37,18 @@ class ModelTest < ActiveSupport::TestCase
     assert_equal false, user.session_active?('not-found')
   end
 
-  test 'ensures only last 10 sessions kept' do
+  test 'ensures number of sessions kept can be configured' do
+    user = User.new(id: 1)
+    DeviseInvalidatable.max_number_of_sessions = 20
+    12.times { user.activate_session }
+
+    assert_equal 12, user.user_sessions.count
+
+    12.times { user.activate_session }
+    assert_equal 20, user.user_sessions.count
+  end
+
+  test 'ensures only last 10 sessions kept by default' do
     user = User.new(id: 1)
     12.times { user.activate_session }
 

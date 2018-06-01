@@ -15,7 +15,7 @@ end
 Warden::Manager.after_fetch do |user, warden, _|
   unless user.session_active?(warden.raw_session['auth_id'])
     warden.logout
-    throw :warden, message: :unauthenticated
+    throw :warden, message: :unauthenticated if DeviseInvalidatable.throw_on_logout
   end
 end
 

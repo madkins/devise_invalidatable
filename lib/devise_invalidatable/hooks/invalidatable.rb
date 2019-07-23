@@ -6,7 +6,7 @@
 # easier to just use our own id.
 Warden::Manager.after_set_user except: :fetch do |user, warden, _|
   UserSession.deactivate(warden.raw_session['auth_id'])
-  warden.raw_session['auth_id'] = user.activate_session(ip: warden.request.ip,
+  warden.raw_session['auth_id'] = user.activate_session(ip: warden.request.remote_ip,
                                                         user_agent: warden.request.user_agent)
 end
 
